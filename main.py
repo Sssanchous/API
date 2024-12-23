@@ -4,6 +4,10 @@ from dotenv import load_dotenv
 import os
 
 
+SHORT_URL = 'https://api.vk.ru/method/utils.getShortLink'
+COUNT_URL = 'https://api.vk.ru/method/utils.getLinkStats'
+
+
 def is_shorten_link(token, url):
     parsed_url = urlparse(url)
     if parsed_url.netloc != 'vk.cc':
@@ -19,9 +23,10 @@ def is_shorten_link(token, url):
     response.raise_for_status()
     short_link = response.json()
 
-    if 'error' in short_link['error']:
+    if short_link['error'] == 'error':
         return False
     return True
+
 
 def shorten_link(token, link):
     params = {
@@ -57,18 +62,16 @@ if __name__ == "__main__":
 
     dotenv_path = os.path.join('API', 'token.env')
     load_dotenv(dotenv_path=dotenv_path)
-    VK_TOKEN = os.environ['TOKEN']
-    SHORT_URL = 'https://api.vk.ru/method/utils.getShortLink'
-    COUNT_URL = 'https://api.vk.ru/method/utils.getLinkStats'
+    vk_token = os.environ['VK_TOKEN']
 
     user_input = input('Введите ссылку: ')
 
     try:
-        if is_shorten_link(VK_TOKEN, user_input):
-            clicks_count = count_clicks(VK_TOKEN, user_input)
+        if is_shorten_link(vk_token, user_input):
+            clicks_count = count_clicks(vk_token, user_input)
             print('Количество кликов по ссылке: ', clicks_count)
         else:
-            short_link = shorten_link(VK_TOKEN, user_input)
+            short_link = shorten_link(vk_token, user_input)
             print('Сокращённая ссылка: ', short_link)
     except requests.exceptions.HTTPError:
         print('Произошла ошибка при работе с API')
