@@ -23,9 +23,7 @@ def is_shorten_link(token, url):
     response.raise_for_status()
     short_link = response.json()
 
-    if short_link['error'] == 'error':
-        return False
-    return True
+    return not(short_link['error'] == 'error')
 
 
 def shorten_link(token, link):
