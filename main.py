@@ -58,7 +58,7 @@ def count_clicks(token, link):
 
 if __name__ == "__main__":
 
-    dotenv_path = os.path.join('API', 'token.env')
+    dotenv_path = os.path.join('short_link', 'token.env')
     load_dotenv(dotenv_path=dotenv_path)
     vk_token = os.environ['VK_TOKEN']
 
