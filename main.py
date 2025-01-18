@@ -2,7 +2,7 @@ import requests
 from urllib.parse import urlparse
 from dotenv import load_dotenv
 import os
-
+import argparse
 
 SHORT_URL = 'https://api.vk.ru/method/utils.getShortLink'
 COUNT_URL = 'https://api.vk.ru/method/utils.getLinkStats'
@@ -62,7 +62,11 @@ if __name__ == "__main__":
     load_dotenv(dotenv_path=dotenv_path)
     vk_token = os.environ['VK_TOKEN']
 
-    user_input = input('Введите ссылку: ')
+    parser = argparse.ArgumentParser(description='Сокращение сылок через VK')
+    parser.add_argument('url', help='Ваша ссылка')
+    args = parser.parse_args()
+    
+    user_input = args.url
 
     try:
         if is_shorten_link(vk_token, user_input):
