@@ -7,7 +7,7 @@
 Для работы скрипта нужен ключ доступа API. Получить его можно создав приложение (https://id.vk.com/about/business/go/docs/ru/vkid/latest/vk-id/connection/create-application) c настройками:
 
 - Тип приложения: Web
-- Базовый домен: example.com*
+- Базовый домен: example.com
 - Доверенный Redirect URL:  - https://example.com 
 
 Ключ нужно сохранить в файле формата '.env':
